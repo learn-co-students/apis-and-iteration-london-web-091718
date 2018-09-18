@@ -6,8 +6,9 @@ def welcome
 end
 
 def get_book_from_user
-  get_books
+  get_books("Harry Potter")
   puts "please enter a book name"
   # use gets to capture the user's input. This method should return that input, downcased.
-  gets.chomp.downcase
+  input = gets.chomp.downcase
+  input
 end

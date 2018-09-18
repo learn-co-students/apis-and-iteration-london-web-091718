@@ -2,9 +2,15 @@ require 'rest-client'
 require 'json'
 require 'pry'
 
-def get_books
+def get_books(user_input)
   #make the web request
-  response_string = RestClient.get('https://anapioficeandfire.com/api/books/')
+  url = " "
+  if user_input == "def"
+    url = "https://anapioficeandfire.com/api/books/"
+  else
+    url = "https://anapioficeandfire.com/api/books?name='#{user_input}'/"
+  end
+  response_string = RestClient.get(url)
   response_hash = JSON.parse(response_string)
 end
 
@@ -15,13 +21,13 @@ def print_books(books_hash)
 end
 
 def show_books
-  response_hash = get_books
+  response_hash = get_books("def")
   print_books(response_hash)
 end
-# def show_character_movies(character)
-#   films_array = get_book_publisher_from_api(publisher)
-#   print_movies(films_array)
-# end
+
+def get_book_character(user_input)
+  get_books
+end
 
 ## BONUS
 
