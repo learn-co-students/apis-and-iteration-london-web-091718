@@ -2,33 +2,31 @@ require 'rest-client'
 require 'json'
 require 'pry'
 
-def get_character_movies_from_api(character)
+def get_books(user_input)
   #make the web request
-  response_string = RestClient.get('http://www.swapi.co/api/people/')
+  url = " "
+  if user_input == "def"
+    url = "https://anapioficeandfire.com/api/books/"
+  else
+    url = "https://anapioficeandfire.com/api/books?name='#{user_input}'/"
+  end
+  response_string = RestClient.get(url)
   response_hash = JSON.parse(response_string)
-  
-  # NOTE: in this demonstration we name many of the variables _hash or _array. 
-  # This is done for educational purposes. This is not typically done in code.
-
-
-  # iterate over the response hash to find the collection of `films` for the given
-  #   `character`
-  # collect those film API urls, make a web request to each URL to get the info
-  #  for that film
-  # return value of this method should be collection of info about each film.
-  #  i.e. an array of hashes in which each hash reps a given film
-  # this collection will be the argument given to `parse_character_movies`
-  #  and that method will do some nice presentation stuff: puts out a list
-  #  of movies by title. play around with puts out other info about a given film.
 end
 
-def print_movies(films_hash)
-  # some iteration magic and puts out the movies in a nice list
+def print_books(books_hash)
+  books_hash.each do |books|
+    puts books["name"]
+  end
 end
 
-def show_character_movies(character)
-  films_array = get_character_movies_from_api(character)
-  print_movies(films_array)
+def show_books
+  response_hash = get_books("def")
+  print_books(response_hash)
+end
+
+def get_book_character(user_input)
+  get_books
 end
 
 ## BONUS
